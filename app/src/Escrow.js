@@ -4,6 +4,7 @@ export default function Escrow({
   beneficiary,
   value,
   handleApprove,
+  account
 }) {
   return (
     <div className="existing-contract">
@@ -20,17 +21,22 @@ export default function Escrow({
           <div> Value </div>
           <div> {value} </div>
         </li>
-        <div
+        {parseFloat(value) > 0 ? <div
           className="button"
           id={address}
           onClick={(e) => {
             e.preventDefault();
-
-            handleApprove();
+            if (account.toLowerCase() != arbiter.toLowerCase()) {
+              alert("No arbiter!");
+            } else {
+              handleApprove();
+            }
           }}
         >
           Approve
         </div>
+          : <div className="complete">✓ It's been approved!</div>
+        }
       </ul>
     </div>
   );
